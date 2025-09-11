@@ -9,9 +9,10 @@
 ---
 
 ## 1. 레파지토리 생성
-- [https://classroom.github.com/a/NJK_cPkH](https://classroom.github.com/a/NJK_cPkH)
+- [https://classroom.github.com/a/nRcUn8vA](https://classroom.github.com/a/nRcUn8vA)
 - 위 Github Classroom 링크에 접속해 본인 조의 github 레파지토리를 생성하세요.
-<img src="https://github.com/user-attachments/assets/b5a7f34a-e146-4253-b57d-672737a75a50" alt="깃헙 클래스룸 레포 생성" width="600" />
+
+<img width="700" alt="깃헙 클래스룸 레포 생성" src="https://github.com/user-attachments/assets/34ca1f43-c2cd-4880-a39e-0dafd889c35f" />
 
 - 레포지토리 생성 시 팀명은 `TEAM-{조 번호}` 형식으로 생성하세요.
 - 예를 들어, 2025년도 3조의 팀명은 `TEAM-03` 입니다.
