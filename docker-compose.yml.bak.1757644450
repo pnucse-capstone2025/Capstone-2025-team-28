@@ -1,0 +1,25 @@
+services:
+  backend:
+    container_name: bitflow-backend
+    build:
+      context: ./server                     # [CHANGED] server 디렉토리를 빌드
+      dockerfile: Dockerfile                # [KEEP] 서버용 Dockerfile
+    ports:
+      - "8000:8000"                         # [KEEP]
+    volumes:
+      - ./server:/app/server                # [KEEP] 코드 마운트(옵션)
+      - ./server/static:/app/server/static:ro  # [KEEP] 서버 내부에서도 static 접근
+
+  nginx:
+    container_name: bitflow-nginx
+    build:
+      context: ./nginx                      # [CHANGED] 우리가 만든 nginx/Dockerfile 사용
+      dockerfile: Dockerfile
+    depends_on:
+      - backend
+    ports:
+      - "80:80"
+    volumes:
+      - ./nginx/default.conf:/etc/nginx/conf.d/default.conf:ro  # [KEEP] 설정 주입
+      - ./Netflix/dist:/usr/share/nginx/html:ro                 # [KEEP] 프론트 빌드 산출물
+      - ./server/static:/usr/share/nginx/html/stream:ro         # [CHANGED] 절대경로로 교체

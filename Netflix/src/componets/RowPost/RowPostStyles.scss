@@ -1,0 +1,254 @@
+/* =========================
+   Swiper 루트 래퍼
+   ========================= */
+.SwiperStyle {
+  position: relative;                 /* [ADDED] 오버레이 기준 */
+  overflow: visible;                  /* [CHANGED] 내부 컨텐츠가 잘리지 않게 */
+}
+
+/* Swiper 기본 컨테이너(.swiper)는 라이브러리 기본값이 overflow:hidden 임 */
+.swiper {                             
+  overflow: visible !important;       /* [CHANGED] 카드 확대/오버레이가 잘리지 않게 */
+}
+
+/* =========================
+   네비/페이지네이션 호버 동작
+   ========================= */
+.SwiperStyle:hover {
+  .swiper-button-prev {
+    opacity: 1;
+    transition: all 400ms ease-out 0s;
+  }
+  .swiper-button-next {
+    opacity: 1;
+    transition: all 400ms ease-out 0s;
+  }
+  .swiper-pagination {
+    opacity: 1;
+  }
+}
+
+.swiper-button-prev {
+  color: white;
+  opacity: 0;
+  transition: all 400ms ease-out 0s;
+}
+.swiper-button-next {
+  color: white;
+  opacity: 0;
+  transition: all 400ms ease-out 0s;
+}
+
+.swiper-pagination {
+  position: initial;
+  display: flex;
+  justify-content: flex-end;
+  opacity: 0;
+  margin-top: -0.8rem;
+  margin-bottom: 0.8rem;
+}
+.swiper-pagination-bullet {
+  cursor: pointer;
+  width: 12px;
+  height: 4px;
+  display: inline-block;
+  opacity: 1;
+  background-color: hsl(0deg 0% 30%);
+  border-radius: 0px;
+  transition: all 0.2s ease-in-out 0s;
+  margin: 0px 0px 0px 2px !important;
+}
+.swiper-pagination-bullet-active {
+  background-color: white;
+  cursor: pointer;
+}
+
+/* =========================
+   카드/슬라이드 배치와 호버 애니메이션
+   ========================= */
+.swiper-wrapper {
+  padding: 40px 0;
+  &:hover .swiper-slide {
+    transform: translateX(-17%);
+    z-index: -1;
+  }
+}
+
+/* 이웃 카드 밀어내기 */
+.swiper-slide:hover ~ .swiper-slide {
+  transform: translateX(17%);
+}
+
+/* 개별 카드 */
+.swiper-slide {
+  position: relative;                 /* [ADDED] 오버레이 절대배치 기준 */
+  overflow: visible;                  /* [CHANGED] 오버레이/그림자 안 잘림 */
+  transition: all 350ms ease-out 0s;
+
+  /* 썸네일 이미지 기본값 보정(줄바꿈 여백 제거/둥근모서리 일치) */
+  img {                               
+    display: block;                   /* [ADDED] 하단 공백 제거 */
+    width: 100%;
+    border-radius: 8px;               /* [ADDED] 카드와 동일 반경 */
+  }
+
+  &:hover {
+    z-index: 20;
+    transition: all 350ms ease-out 0s;
+    cursor: pointer;
+  }
+
+  &:first-child:hover {
+    margin: 0 75px;
+  }
+  &:last-child:hover {
+    margin: 0 -75px;
+  }
+}
+
+/* 호버 시 투명도 조절 */
+.swiper-wrapper:hover {
+  .swiper-slide {
+    opacity: 0.4;
+  }
+}
+.swiper-wrapper .swiper-slide:hover {
+  opacity: 1;
+}
+
+/* 확대 스케일 */
+.swiper-wrapper .swiper-slide:hover {
+  transform: scale(1.5);
+  z-index: 5;
+}
+
+/* =========================
+   카드 하단 정보 오버레이
+   ========================= */
+/* 오버레이 박스: .content 가 이미지 위에 겹쳐서 나타나도록 세팅 */
+.content {
+  position: absolute;                 /* [CHANGED] 이미지 위로 겹치기 */
+  left: 0;
+  right: 0;
+  bottom: 0;                          /* [CHANGED] 하단 정렬 */
+  padding: 12px 14px 10px;
+  width: 100%;
+  box-sizing: border-box;
+
+  /* 어둡게 → 투명 그라데이션 (가독성↑) */
+  background: linear-gradient(
+    to top,                           /* [CHANGED] 방향 수정 */
+    rgba(0, 0, 0, 0.88) 0%,
+    rgba(0, 0, 0, 0.55) 35%,
+    rgba(0, 0, 0, 0.00) 80%
+  );
+
+  color: #fff;
+  border-radius: 0 0 8px 8px;         /* [ADDED] 썸네일과 가장자리 일치 */
+
+  /* display 토글 대신 opacity/visibility로 부드러운 전환 */
+  opacity: 0;                         /* [CHANGED] 초기 감춤 */
+  visibility: hidden;                 /* [ADDED] 접근성/포인터 차단 */
+  transform: translateY(8px);         /* [ADDED] 살짝 아래에서 떠오르게 */
+  transition: opacity .35s ease, 
+              transform .35s ease, 
+              visibility .35s ease;   /* [ADDED] 부드러운 등장 */
+  pointer-events: none;               /* [ADDED] 오버레이 텍스트가 버튼 클릭 막지 않게 */
+}
+
+/* 호버 시 오버레이 등장 */
+.swiper-slide:hover .content {
+  opacity: 1;                         /* [CHANGED] 보이기 */
+  visibility: visible;                /* [ADDED] 포인터 허용 */
+  transform: translateY(0);           /* [ADDED] 제자리 */
+  pointer-events: auto;               /* [ADDED] 내부 버튼/링크가 있다면 클릭 가능 */
+}
+
+/* 큰 카드 버전 */
+.swiper-slide.large {
+  &:hover {
+    transform: scale(1.2) !important;
+  }
+
+  .swiper-wrapper {
+    padding: 40px 0;
+    &:hover .swiper-slide {
+      transform: translateX(-12%) !important;
+      z-index: -1;
+    }
+  }
+
+  .swiper-slide:hover ~ .swiper-slide {
+    transform: translateX(12%) !important;
+  }
+}
+
+/* =========================
+   YouTube 영역
+   ========================= */
+.YouTubeVid {
+  iframe {
+    height: 27rem;
+  }
+}
+
+/* =========================
+   반응형 보정
+   ========================= */
+@media only screen and (max-width: 650px) {
+  .YouTubeVid {
+    iframe {
+      height: 13rem;
+    }
+  }
+}
+
+@media only screen and (max-width: 1050px) {
+  .swiper-wrapper {
+    padding: 0;
+    &:hover.swiper-slide {
+      transform: translateX(0);
+    }
+  }
+  .swiper-wrapper:hover .swiper-slide {
+    transform: translateX(0%);
+  }
+  .swiper-slide:hover ~ .swiper-slide {
+    transform: translateX(0);
+  }
+  .swiper-wrapper .swiper-slide:hover {
+    transform: scale(1.03);
+  }
+  .swiper-slide.large {
+    &:hover {
+      transform: scale(1.03) !important;
+    }
+  }
+
+  .swiper-slide {
+    transition: all 350ms ease-out 0s;
+
+    &:hover img {
+      z-index: 1;
+    }
+    &:first-child:hover {
+      margin: 0;
+    }
+    &:last-child:hover {
+      margin: 0;
+    }
+  }
+
+  /* 모바일에선 오버레이를 카드 밖으로 내리지 않고, 카드 안에서만 보이게 */
+  .swiper-slide:hover .content {
+    opacity: 1;                       /* [CHANGED] 모바일에서도 보이도록 */
+    visibility: visible;              /* [ADDED] */
+    bottom: 0;                        /* [CHANGED] 카드 하단에 고정 */
+    transform: translateY(0);
+  }
+}
+
+/* YouTube 기본 타이틀 제거 */
+.ytp-title-expanded-heading {
+  display: none;
+}

@@ -1,0 +1,3 @@
+[submodule "mv_extractor"]
+	path = mv_extractor
+	url = https://github.com/LukasBommes/mv-extractor.git
