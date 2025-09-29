@@ -233,160 +233,70 @@ CRF와 Max Rate 모델 모두 훈련 과정에서 손실(RMSE)가 안정적으�
 
 최적화 모델을 적용한 영상의 VMAF 점수를 측정한 결과, **평균 89.5점**으로 목표 기준치(90점)에 근접한 높은 품질을 유지했다. 그러나 일부 구간에서는 Max Rate 제약으로 인한 순간적인 품질 저하가 관찰되었으나, 전반적으로 우수한 품질을 보였다.
 
-## 4.5. 디렉토리 구조
->
-
-### 5. 설치 및 실행 방법
->
-#### 5.1. 설치절차 및 실행 방법
-> 설치 명령어 및 준비 사항, 실행 명령어, 포트 정보 등
-#### 5.2. 오류 발생 시 해결 방법
-> 선택 사항, 자주 발생하는 오류 및 해결책 등
-
-### 6. 소개 자료 및 시연 영상
-#### 6.1. 프로젝트 소개 자료
-> PPT 등
-#### 6.2. 시연 영상
-> 영상 링크 또는 주요 장면 설명
-
-### 7. 팀 구성
-#### 7.1. 팀원별 소개 및 역할 분담
->
-#### 7.2. 팀원 별 참여 후기
-> 개별적으로 느낀 점, 협업, 기술적 어려움 극복 사례 등
-
-### 8. 참고 문헌 및 출처
-
+## 4.5. 주요 디렉토리 구조
+```
+├─ Netflix/                # 프론트엔드 (React + Vite 기반)
+├─ input/                  # 원본 영상 저장 폴더
+├─ nginx/                  # Nginx 설정(컨테이너용 Dockerfile, default.conf)
+├─ server/                 # 백엔드 (FastAPI + 인코딩)
+│  ├─ encode.py            # 영상 세그먼트 인코딩 및 DASH 패키징
+│  ├─ main.py              # FastAPI 앱 진입점 (CORS 설정 + static 세그먼트 제공)
+│  ├─ static/              # 백엔드에서 생성/제공하는 정적 파일(DASH 세그먼트 등)
 ```
 
-## 5. README.md 작성팁 
-* 마크다운 언어를 이용해 README.md 파일을 작성할 때 참고할 수 있는 마크다운 언어 문법을 공유합니다.  
-* 다양한 예제와 보다 자세한 문법은 [이 문서](https://www.markdownguide.org/basic-syntax/)를 참고하세요.
+# 5. 실행 방법
+## 5.1 배포된 서비스 접속
+AWS EC2 + Docker 기반으로 배포된 서비스에 접속할 수 있다.  
+[https://pnuplay.duckdns.org/](https://pnuplay.duckdns.org/)
 
-### 5.1. 헤더 Header
+## 5.2 로컬 실행 방법
+### 1. 저장소 다운로드
+```bash
+git clone https://github.com/pnucse-capstone2025/Capstone-2025-team-28.git
+cd Capstone-2025-team-28
 ```
-# This is a Header 1
-## This is a Header 2
-### This is a Header 3
-#### This is a Header 4
-##### This is a Header 5
-###### This is a Header 6
-####### This is a Header 7 은 지원되지 않습니다.
+
+### 2. 백엔드
+```bash
+cd server
+python3 encode.py
+python3 -m uvicorn main:app --reload
 ```
-<br />
 
-### 5.2. 인용문 BlockQuote
+### 3. 프론트엔드 
+```bash
+cd ../Netflix
+npm install   # 최초 1회
+npm run dev
 ```
-> This is a first blockqute.
->	> This is a second blockqute.
->	>	> This is a third blockqute.
-```
-> This is a first blockqute.
->	> This is a second blockqute.
->	>	> This is a third blockqute.
-<br />
 
-### 5.3. 목록 List
-* **Ordered List**
-```
-1. first
-2. second
-3. third  
-```
-1. first
-2. second
-3. third
-<br />
+# 6. 소개 자료 및 시연 영상
 
-* **Unordered List**
-```
-* 하나
-  * 둘
+## 6.1. 프로젝트 소개 자료
+[발표자료 (PPT)](https://docs.google.com/presentation/d/1El5zyZb45ys7j3ex-t6DazZE4iNPgZps/edit?usp=sharing&ouid=111823650466145759678&rtpof=true&sd=true)
 
-+ 하나
-  + 둘
+## 6.2. 시연 영상
+[![시연 영상 썸네일](https://img.youtube.com/vi/l0LDAP3IGH0/hqdefault.jpg)](https://youtu.be/l0LDAP3IGH0?si=gUN5SBJcrJYPiMGO)
 
-- 하나
-  - 둘
-```
-* 하나
-  * 둘
+# 7. 팀 구성
 
-+ 하나
-  + 둘
-
-- 하나
-  - 둘
-<br />
-
-### 5.4. 코드 CodeBlock
-* 코드 블럭 이용 '``'
-```
-여러줄 주석 "```" 이용
-"```
-#include <stdio.h>
-int main(void){
-  printf("Hello world!");
-  return 0;
-}
-```"
-
-단어 주석 "`" 이용
-"`Hello world`"
-
-* 큰 따움표(") 없이 사용하세요.
-``` 
-<br />
-
-### 5.5. 링크 Link
-```
-[Title](link)
-[부산대학교 정보컴퓨터공학부](https://cse.pusan.ac.kr/cse/index..do)
-
-<link>
-<https://cse.pusan.ac.kr/cse/index..do>
-``` 
-[부산대학교 정보컴퓨터공학부](https://cse.pusan.ac.kr/cse/index..do)
-
-<https://cse.pusan.ac.kr/cse/index..do>
-<br />
-
-### 5.6. 강조 Highlighting
-```
-*single asterisks*
-_single underscores_
-**double asterisks**
-__double underscores__
-~~cancelline~~
-```
-*single asterisks* <br />
-_single underscores_ <br />
-**double asterisks** <br />
-__double underscores__ <br />
-~~cancelline~~  <br />
-<br />
-
-### 5.7. 이미지 Image
-```
-<img src="image URL" width="600px" title="Title" alt="Alt text"></img>
-![Alt text](image URL "Optional title")
-```
-- 웹에서 작성한다면 README.md 내용 안으로 이미지를 드래그 앤 드롭하면 이미지가 생성됩니다.
-- 웹이 아닌 로컬에서 작성한다면, github issue에 이미지를 드래그 앤 드롭하여 image url 을 얻을 수 있습니다. (URL만 복사하고 issue는 제출 안 함.)
-  <img src="https://github.com/user-attachments/assets/0fe3bff1-7a2b-4df3-b230-cac4ef5f6d0b" alt="이슈에 image 올림" width="600" />
-  <img src="https://github.com/user-attachments/assets/251c6d42-b36b-4ad4-9cfa-fa2cc67a9a50" alt="image url 복사" width="600" />
+| 이름   | 이메일                   | 역할 |
+|--------|--------------------------|-----------------|
+| 김남희 | knh0503@pusan.ac.kr      | 영상 특성 추출<br>훈련 데이터셋 생성<br>&nbsp;&nbsp;1. VMAF 품질 평가<br>&nbsp;&nbsp;2. 최적 인코딩 파라미터 탐색<br>인코딩 파라미터 최적화 모델 구현 및 훈련<br>최적화 모델 스트리밍 시스템 적용 |
+| 박은재 | sayes0515@pusan.ac.kr    | 영상 스트리밍 웹 서비스<br>&nbsp;&nbsp;1. DASH 기반 영상 스트리밍 구현<br>&nbsp;&nbsp;2. Firebase 기반 사용자 인증 및 데이터베이스 구축<br>인코딩 파이프라인 구현<br>AWS EC2 + Docker 기반 배포 환경 구축 |
 
 
-### 5.8. 유튜브 영상 추가
-```markdown
-[![영상 이름](유튜브 영상 썸네일 URL)](유튜브 영상 URL)
-[![부산대학교 정보컴퓨터공학부 소개](http://img.youtube.com/vi/zh_gQ_lmLqE/0.jpg)](https://www.youtube.com/watch?v=zh_gQ_lmLqE)    
-```
-[![부산대학교 정보컴퓨터공학부 소개](http://img.youtube.com/vi/zh_gQ_lmLqE/0.jpg)](https://www.youtube.com/watch?v=zh_gQ_lmLqE)    
+# 8. 참고 문헌 및 출처
+[1] Velibor Adzic, Hari Kalva, Borko Furht, "Temporal visual masking for HEVC/H.265 perceptual optimization", 2013 Picture Coding Symposium (PCS), pp. 430-433, 2013.  
 
-- 이때 유튜브 영상 썸네일 URL은 유투브 영상 URL로부터 다음과 같이 얻을 수 있습니다.
+[2] V. Adzic, H. Kalva, and B. Furht, "Exploring visual temporal masking for video compression," Proc. 2013 IEEE International Conference on Consumer Electronics (ICCE), pp. 590-591, 2013.  
 
-- `Youtube URL`: https://www.youtube.com/watch?v={동영상 ID}
-- `Youtube Thumbnail URL`: http://img.youtube.com/vi/{동영상 ID}/0.jpg 
-- 예를 들어, https://www.youtube.com/watch?v=zh_gQ_lmLqE 라고 하면 썸네일의 주소는 http://img.youtube.com/vi/zh_gQ_lmLqE/0.jpg 이다.
+[3] S. Rimac-Drlje, D. Zagar, and G. Martinovic, "Spatial Masking and Perceived Video Quality in Multimedia Applications," Proc. 2009 16th International Conference on Systems, Signals and Image Processing, pp. 1-4, 2009.  
 
+[4] J. Vlaović, M. Vranješ, D. Grabić, and D. Samardžija, "Comparison of Objective Video Quality Assessment Methods on Videos With Different Spatial Resolutions," Proc. 2019 International Conference on Systems, Signals and Image Processing (IWSSIP), pp. 287-292, 2019.  
+
+[5] I. Sodagar, "The MPEG-DASH Standard for Multimedia Streaming Over the Internet", IEEE MultiMedia, vol. 18, no. 4, pp. 62-67, April 2011.  
+
+# 9. Acknowledgements
+
+This project was built referencing [Netflix-reactjs](https://github.com/JosinJojy/Netflix-reactjs).
