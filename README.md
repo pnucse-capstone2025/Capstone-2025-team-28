@@ -40,7 +40,7 @@ AI 모델이 예측한 파라미터를 적용하여 최적화된 비디오 세�
 사용자가 영상을 시청하고 관리할 수 있는 **웹 어플리케이션을 개발하고 배포**한다.
 * 주요 기능: 회원 관리(가입, 로그인), 시청 기록 관리, 즐겨찾기 등
 
-### 2.2. 기존 서비스 대비 차별성 
+## 2.2. 기존 서비스 대비 차별성 
 **MPEG-DASH(Dynamic Adaptive Streaming over HTTP)** 는 적응형 HTTP 스트리밍 기술의 대표적인 구현 표준으로, 서버가 여러 해상도와 비트레이트 조합으로 인코딩 된 영상 세그먼트를 미리 생성하여 저장해두고 클라이언트가 현재 네트워크 상황을 보고 예측하여, 어떤 세그먼트를 받을지 실시간으로 결정해서 재생하는 방식이다.<br>
 <img width="600" height="460" alt="Image" src="https://github.com/user-attachments/assets/b9b8596c-91c6-44c9-b802-3911ca8b295b" />
 
@@ -90,7 +90,7 @@ AI 모델이 예측한 파라미터를 적용하여 최적화된 비디오 세�
 | **Frontend** | **React.js (Vite)** | 사용자 인터페이스(UI) 구축 및 동적 기능 구현 (Vite를 사용하여 빠른 개발 환경 구성) |
 | | **dash.js** | MPEG-DASH 표준을 지원하는 비디오 플레이어로, 적응형 스트리밍 클라이언트 기능 수행 |
 | | **Firebase** | **Authentication**: 소셜 로그인 등 간편하고 안전한 사용자 인증 기능 구현<br>**Firestore**: 실시간 데이터베이스를 활용한 사용자 데이터 및 영상 메타데이터 관리 |
-| **Video Processing <br>& AI Pipeline** | **FFmpeg, MP4Box** | **FFmpeg**: 영상 인코딩/디코딩, 특성 추출 등 핵심 영상 처리<br>**MPBox**: 인코딩된 영상을 MPEG-DASH 형식에 맞게 세그먼트(Segment)로 분할 및 패키징 |
+| **Video Processing <br>& AI Pipeline** | **FFmpeg, MP4Box** | **FFmpeg**: 영상 인코딩/디코딩, 특성 추출 등 핵심 영상 처리<br>**MP4Box**: 인코딩된 영상을 MPEG-DASH 형식에 맞게 세그먼트(Segment)로 분할 및 패키징 |
 | | **NumPy, Pandas** | 추출된 영상 특성 데이터를 정제하고 머신러닝 모델 학습을 위한 데이터셋 구성 |
 | | **Scikit-learn <br>(MLPRegressor)** | 영상 특성 기반 최적 인코딩 파라미터(CRF, Maxrate) 예측을 위한 **회귀 모델(MLPRegressor) 개발 및 학습** |
 
@@ -130,7 +130,7 @@ AI 모델이 예측한 파라미터를 적용하여 최적화된 비디오 세�
     * 세그먼트는 미리 최적화 파라미터로 인코딩 되어 클라이언트의 요청에 따라 FastAPI를 통해 HTTP 서버로 제공
 
 ### 클라이언트 측 시스템
-<img width="365" height="487" alt="Image" src="https://github.com/user-attachments/assets/a64365d9-f316-4a04-b569-d09c03996a17" /><br>
+<img width="300" height="400" alt="Image" src="https://github.com/user-attachments/assets/a64365d9-f316-4a04-b569-d09c03996a17" /><br>
 
 
 클라이언트 측은 **dash.js 라이브러리**를 기반으로 영상 스트리밍을 수행한다.
