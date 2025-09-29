@@ -1,0 +1,9 @@
+fastapi==0.118.0
+joblib==1.5.1
+matplotlib==3.10.6
+motion_vector_extractor==1.1.0
+numpy==2.3.3
+opencv_python==4.12.0.88
+pandas==2.3.2
+scipy==1.16.2
+skimage==0.0
