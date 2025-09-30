@@ -1,13 +1,9 @@
-# ==============================
-# docker-compose.yml (전체 교체)
-# ==============================
-
 services:
   backend:
     container_name: bitflow-backend
     build:
-      context: ./server
-      dockerfile: Dockerfile
+      context: .
+      dockerfile: server/Dockerfile
     command: uvicorn main:app --host 0.0.0.0 --port 8000
     ports:
       - "8000:8000"
