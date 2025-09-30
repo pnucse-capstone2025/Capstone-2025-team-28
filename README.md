@@ -250,20 +250,26 @@ AWS EC2 + Docker 기반으로 배포된 서비스에 접속할 수 있다.
 [https://pnuplay.duckdns.org/](https://pnuplay.duckdns.org/)
 
 ## 5.2 로컬 실행 방법
+
 ### 1. 저장소 다운로드
 ```bash
 git clone https://github.com/pnucse-capstone2025/Capstone-2025-team-28.git
 cd Capstone-2025-team-28
 ```
 
-### 2. 백엔드
+### 2. 필수 패키지 설치
+```bash
+pip install -r requirements.txt
+```
+
+### 3. 백엔드
 ```bash
 cd server
 python3 encode.py
 python3 -m uvicorn main:app --reload
 ```
 
-### 3. 프론트엔드 
+### 4. 프론트엔드 
 ```bash
 cd ../Netflix
 npm install   # 최초 1회
